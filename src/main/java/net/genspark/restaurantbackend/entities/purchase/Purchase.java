@@ -1,5 +1,8 @@
 package net.genspark.restaurantbackend.entities.purchase;
 
+import net.genspark.restaurantbackend.entities.menu.MenuItem;
+import net.genspark.restaurantbackend.entities.user.User;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +14,15 @@ public class Purchase {
 
     private String date;
 
-    private String price;
+    private double price;
+
+    public Purchase(String date, double price) {
+        this.date = date;
+        this.price = price;
+    }
+
+    public Purchase() {
+    }
 
     public int getId() {
         return id;
@@ -29,11 +40,11 @@ public class Purchase {
         this.date = date;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
