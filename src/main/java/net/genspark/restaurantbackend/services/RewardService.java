@@ -30,4 +30,9 @@ public class RewardService {
 
         return rewardRepository.findById(id).orElseThrow(() -> new RuntimeException("id not found"));
     }
+
+    public boolean existsById(int id) {
+
+        return rewardRepository.existsById(id);
+    }
 }
