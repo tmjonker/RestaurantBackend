@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MenuService {
@@ -72,6 +69,7 @@ public class MenuService {
                 categoryList.add(category);
             }
         }
+
 
         return categoryList;
     }
