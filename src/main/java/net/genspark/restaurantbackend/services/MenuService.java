@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MenuService {
@@ -56,16 +58,14 @@ public class MenuService {
         return menuItemRepository.existsById(id);
     }
 
-    public List<String> getCategories() {
+    public Set<String> getCategories() {
 
         List<MenuItem> miList = Streamable.of(menuItemRepository.findAll()).toList();
-        List<String> categoryList = new ArrayList<>();
+        Set<String> categoryList = new HashSet<>();
 
         for (MenuItem m : miList) {
 
-            if (!categoryList.contains(m.getCategory())) {
-                categoryList.add(m.getCategory());
-            }
+            categoryList.add(m.getCategory());
         }
 
         return categoryList;

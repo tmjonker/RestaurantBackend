@@ -8,6 +8,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class MenuController {
@@ -44,7 +45,7 @@ public class MenuController {
     }
 
     @GetMapping("/api/menu/categories")
-    public List<String> getCategories() {
+    public Set<String> getCategories() {
 
         return menuService.getCategories();
     }
