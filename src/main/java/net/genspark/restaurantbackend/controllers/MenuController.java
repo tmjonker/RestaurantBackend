@@ -1,6 +1,7 @@
 package net.genspark.restaurantbackend.controllers;
 
 import net.genspark.restaurantbackend.entities.menu.MenuItem;
+import net.genspark.restaurantbackend.entities.menu.category.Category;
 import net.genspark.restaurantbackend.exceptions.MenuItemNotFoundException;
 import net.genspark.restaurantbackend.repositories.MenuItemRepository;
 import net.genspark.restaurantbackend.services.MenuService;
@@ -45,7 +46,7 @@ public class MenuController {
     }
 
     @GetMapping("/api/menu/categories")
-    public Set<String> getCategories() {
+    public List<Category> getCategories() {
 
         return menuService.getCategories();
     }

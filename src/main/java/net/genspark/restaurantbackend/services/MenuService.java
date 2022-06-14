@@ -1,6 +1,7 @@
 package net.genspark.restaurantbackend.services;
 
 import net.genspark.restaurantbackend.entities.menu.MenuItem;
+import net.genspark.restaurantbackend.entities.menu.category.Category;
 import net.genspark.restaurantbackend.exceptions.MenuItemNotFoundException;
 import net.genspark.restaurantbackend.repositories.MenuItemRepository;
 import org.springframework.data.util.Streamable;
@@ -58,14 +59,16 @@ public class MenuService {
         return menuItemRepository.existsById(id);
     }
 
-    public Set<String> getCategories() {
+    public List<Category> getCategories() {
 
         List<MenuItem> miList = Streamable.of(menuItemRepository.findAll()).toList();
-        Set<String> categoryList = new HashSet<>();
+        List<Category> categoryList = new ArrayList<>();
 
         for (MenuItem m : miList) {
 
-            categoryList.add(m.getCategory());
+            Category category = new Category(m.getCategory());
+
+            categoryList.add(category);
         }
 
         return categoryList;
