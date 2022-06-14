@@ -43,6 +43,12 @@ public class MenuController {
         return menuService.getMenuItemsByCategory(category);
     }
 
+    @GetMapping("/api/menu/categories")
+    public List<String> getCategories() {
+
+        return menuService.getCategories();
+    }
+
     @PostMapping(value = "/api/menu/{id}")
     public MenuItem addMenuItem(@RequestBody MenuItem menuItem) {
 
