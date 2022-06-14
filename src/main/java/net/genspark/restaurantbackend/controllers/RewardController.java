@@ -25,4 +25,10 @@ public class RewardController {
 
         return rewardService.getRewards(usernameMap.get("username"));
     }
+
+    @GetMapping
+    public List<Reward> getRewards() {
+
+        return rewardService.getRewards();
+    }
 }

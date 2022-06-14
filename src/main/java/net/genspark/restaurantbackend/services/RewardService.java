@@ -3,6 +3,7 @@ package net.genspark.restaurantbackend.services;
 import net.genspark.restaurantbackend.entities.reward.Reward;
 import net.genspark.restaurantbackend.entities.user.User;
 import net.genspark.restaurantbackend.repositories.RewardRepository;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class RewardService {
         User user = (User) userDetailsService.loadUserByUsername(username);
 
         return user.getRewards();
+    }
+
+    public List<Reward> getRewards() {
+
+        return Streamable.of(rewardRepository.findAll()).toList();
     }
 
     public Reward getReward(int id) {
