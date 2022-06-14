@@ -68,7 +68,9 @@ public class MenuService {
 
             Category category = new Category(m.getCategory());
 
-            categoryList.add(category);
+            if (!categoryList.contains(category)) {
+                categoryList.add(category);
+            }
         }
 
         return categoryList;
