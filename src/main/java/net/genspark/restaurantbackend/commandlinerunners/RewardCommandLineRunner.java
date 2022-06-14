@@ -3,23 +3,20 @@ package net.genspark.restaurantbackend.commandlinerunners;
 import net.genspark.restaurantbackend.entities.reward.Reward;
 import net.genspark.restaurantbackend.repositories.RewardRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommandLineAppRunner implements CommandLineRunner {
+public class RewardCommandLineRunner implements CommandLineRunner {
 
     private RewardRepository rewardRepository;
 
-    public CommandLineAppRunner(RewardRepository rewardRepository) {
+    public RewardCommandLineRunner(RewardRepository rewardRepository) {
 
         this.rewardRepository = rewardRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-
 
         if (!rewardRepository.existsById(1)) {
 
