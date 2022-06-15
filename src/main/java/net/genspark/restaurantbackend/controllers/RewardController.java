@@ -26,7 +26,7 @@ public class RewardController {
         return rewardService.getRewards(usernameMap.get("username"));
     }
 
-    @GetMapping
+    @GetMapping("/rewards")
     public List<Reward> getRewards() {
 
         return rewardService.getRewards();
