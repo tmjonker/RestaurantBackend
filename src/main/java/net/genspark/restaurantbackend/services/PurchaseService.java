@@ -35,11 +35,11 @@ public class PurchaseService {
 
         double totalPurchases = user.getPurchases().stream().map(Purchase::getPrice).reduce(0.0, (a, b) -> a + b);
 
-        if (totalPurchases > 150.00) {
+        if (totalPurchases >= 150.00) {
             user.addReward(rewardService.getReward(3));
-        } else if (totalPurchases > 100.00) {
+        } else if (totalPurchases >= 100.00) {
             user.addReward(rewardService.getReward(2));
-        } else if (totalPurchases > 50.00) {
+        } else if (totalPurchases >= 50.00) {
             user.addReward(rewardService.getReward(1));
         }
 
