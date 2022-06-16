@@ -13,21 +13,21 @@ public class PurchaseRequest {
 
     private String username;
 
-    private int menuId;
+    private List<Integer> menuIds;
 
-    public PurchaseRequest(String date, double price, String username, int menuId) {
+    public PurchaseRequest(String date, double price, String username, List<Integer> menuIds) {
         this.date = date;
         this.price = price;
         this.username = username;
-        this.menuId = menuId;
+        this.menuIds = menuIds;
     }
 
-    public int getMenuId() {
-        return menuId;
+    public List<Integer> getMenuIds() {
+        return menuIds;
     }
 
-    public void setMenuId(int menuId) {
-        this.menuId = menuId;
+    public void setMenuIds(List<Integer> menuId) {
+        this.menuIds = menuId;
     }
 
     public String getDate() {
