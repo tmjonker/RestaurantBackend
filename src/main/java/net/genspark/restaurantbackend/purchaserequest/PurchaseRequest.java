@@ -1,5 +1,6 @@
 package net.genspark.restaurantbackend.purchaserequest;
 
+import net.genspark.restaurantbackend.entities.address.Address;
 import net.genspark.restaurantbackend.entities.menu.MenuItem;
 
 import javax.persistence.ManyToMany;
@@ -15,6 +16,8 @@ public class PurchaseRequest {
 
     private List<Integer> menuIds;
 
+    private Address address;
+
     public PurchaseRequest(String date, double price, String username, List<Integer> menuIds) {
         this.date = date;
         this.price = price;
@@ -28,6 +31,14 @@ public class PurchaseRequest {
 
     public void setMenuIds(List<Integer> menuId) {
         this.menuIds = menuId;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getDate() {

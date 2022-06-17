@@ -1,5 +1,6 @@
 package net.genspark.restaurantbackend.services;
 
+import net.genspark.restaurantbackend.entities.address.Address;
 import net.genspark.restaurantbackend.entities.menu.MenuItem;
 import net.genspark.restaurantbackend.entities.purchase.Purchase;
 import net.genspark.restaurantbackend.entities.user.User;
@@ -19,13 +20,16 @@ public class PurchaseService {
     RewardService rewardService;
     MenuService menuService;
 
+    AddressService addressService;
+
     public PurchaseService(PurchaseRepository purchaseRepository, CustomUserDetailsService userDetailsService,
-                           RewardService rewardService, MenuService menuService) {
+                           RewardService rewardService, MenuService menuService, AddressService addressService) {
 
         this.purchaseRepository = purchaseRepository;
         this.userDetailsService = userDetailsService;
         this.rewardService = rewardService;
         this.menuService = menuService;
+        this.addressService = addressService;
     }
 
     public Purchase addPurchase(PurchaseRequest purchaseRequest) {
@@ -35,19 +39,14 @@ public class PurchaseService {
         List<MenuItem> menuItems = new ArrayList<>();
         purchaseRequest.getMenuIds().forEach(item -> menuItems.add(menuService.getMenuItemById(item)));
 
-        Purchase purchase = new Purchase(purchaseRequest.getDate(), purchaseRequest.getPrice());
+        Address address = addressService.saveAddress(purchaseRequest.getAddress());
+
+        Purchase purchase = new Purchase(purchaseRequest.getDate(), purchaseRequest.getPrice(), address);
         menuItems.forEach(item -> purchase.addMenuItem(item));
 
         user.addPurchase(purchase);
 
-        double totalPurchases = user.getPurchases().stream().map(Purchase::getPrice).reduce(0.0, (a, b) -> a + b);
-        if (totalPurchases >= 150.00 && !user.getRewards().contains(rewardService.getReward(3))) {
-            user.addReward(rewardService.getReward(3));
-        } else if (totalPurchases >= 100.00 && !user.getRewards().contains(rewardService.getReward(2))) {
-            user.addReward(rewardService.getReward(2));
-        } else if (totalPurchases >= 50.00 && !user.getRewards().contains(rewardService.getReward(1))) {
-            user.addReward(rewardService.getReward(1));
-        }
+        rewardService.addRewardsToUser(user);
 
         purchaseRepository.save(purchase);
 

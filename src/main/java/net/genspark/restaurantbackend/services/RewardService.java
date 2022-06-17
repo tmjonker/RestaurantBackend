@@ -1,5 +1,6 @@
 package net.genspark.restaurantbackend.services;
 
+import net.genspark.restaurantbackend.entities.purchase.Purchase;
 import net.genspark.restaurantbackend.entities.reward.Reward;
 import net.genspark.restaurantbackend.entities.user.User;
 import net.genspark.restaurantbackend.repositories.RewardRepository;
@@ -40,5 +41,17 @@ public class RewardService {
     public boolean existsById(int id) {
 
         return rewardRepository.existsById(id);
+    }
+
+    public void addRewardsToUser(User user) {
+
+        double totalPurchases = user.getPurchases().stream().map(Purchase::getPrice).reduce(0.0, (a, b) -> a + b);
+        if (totalPurchases >= 150.00 && !user.getRewards().contains(getReward(3))) {
+            user.addReward(getReward(3));
+        } else if (totalPurchases >= 100.00 && !user.getRewards().contains(getReward(2))) {
+            user.addReward(getReward(2));
+        } else if (totalPurchases >= 50.00 && !user.getRewards().contains(getReward(1))) {
+            user.addReward(getReward(1));
+        }
     }
 }
