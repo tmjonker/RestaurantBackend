@@ -45,13 +45,13 @@ public class RewardService {
 
     public void addRewardsToUser(User user) {
 
+        List<Reward> rewardList = getRewards();
         double totalPurchases = user.getPurchases().stream().map(Purchase::getPrice).reduce(0.0, (a, b) -> a + b);
-        if (totalPurchases >= 150.00 && !user.getRewards().contains(getReward(3))) {
-            user.addReward(getReward(3));
-        } else if (totalPurchases >= 100.00 && !user.getRewards().contains(getReward(2))) {
-            user.addReward(getReward(2));
-        } else if (totalPurchases >= 50.00 && !user.getRewards().contains(getReward(1))) {
-            user.addReward(getReward(1));
+
+        for(Reward reward : rewardList) {
+            if(totalPurchases >= reward.getRewardThreshold() && !user.getRewards().contains(reward))
+                user.addReward(reward);
         }
+
     }
 }
