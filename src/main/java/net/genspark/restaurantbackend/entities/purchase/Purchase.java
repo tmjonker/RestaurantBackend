@@ -30,11 +30,8 @@ public class Purchase {
     )
     private List<MenuItem> menuItems;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "purchase_address",
-    joinColumns = @JoinColumn(name = "purchase_id"),
-    inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     public Purchase(String date, double price, Address address) {

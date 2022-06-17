@@ -1,9 +1,8 @@
 package net.genspark.restaurantbackend.entities.address;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import net.genspark.restaurantbackend.entities.purchase.Purchase;
+
+import javax.persistence.*;
 
 @Entity
 public class Address {
@@ -23,6 +22,9 @@ public class Address {
     private String state;
 
     private int zipCode;
+
+    @OneToOne(mappedBy = "address")
+    private Purchase purchase;
 
     public Address(String name, String address1, String address2, String city, String state, int zipCode) {
         this.name = name;
