@@ -9,7 +9,6 @@ import net.genspark.restaurantbackend.repositories.PurchaseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -20,10 +19,10 @@ public class PurchaseService {
     RewardService rewardService;
     MenuService menuService;
 
-    AddressService addressService;
+    AddressCustomService addressService;
 
     public PurchaseService(PurchaseRepository purchaseRepository, CustomUserDetailsService userDetailsService,
-                           RewardService rewardService, MenuService menuService, AddressService addressService) {
+                           RewardService rewardService, MenuService menuService, AddressCustomService addressService) {
 
         this.purchaseRepository = purchaseRepository;
         this.userDetailsService = userDetailsService;
@@ -45,6 +44,7 @@ public class PurchaseService {
         menuItems.forEach(item -> purchase.addMenuItem(item));
 
         user.addPurchase(purchase);
+        user.addAddress(address);
 
         rewardService.addRewardsToUser(user);
 

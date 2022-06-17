@@ -1,11 +1,14 @@
 package net.genspark.restaurantbackend.services;
 
+import net.genspark.restaurantbackend.entities.address.Address;
 import net.genspark.restaurantbackend.entities.user.User;
 import net.genspark.restaurantbackend.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -36,5 +39,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     public User saveUser(User user) {
 
         return userRepository.save(user);
+    }
+
+    public List<Address> getUserAddresses(String username) {
+
+        User user = (User) loadUserByUsername(username);
+
+        return user.getAddresses();
     }
 }

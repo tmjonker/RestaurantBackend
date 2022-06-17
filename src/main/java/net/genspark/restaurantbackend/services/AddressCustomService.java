@@ -5,11 +5,11 @@ import net.genspark.restaurantbackend.repositories.AddressRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressService {
+public class AddressCustomService {
 
     private AddressRepository addressRepository;
 
-    public AddressService(AddressRepository addressRepository) {
+    public AddressCustomService(AddressRepository addressRepository) {
 
         this.addressRepository = addressRepository;
     }
