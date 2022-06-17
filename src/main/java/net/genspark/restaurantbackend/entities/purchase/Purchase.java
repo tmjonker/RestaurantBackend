@@ -30,7 +30,7 @@ public class Purchase {
     )
     private List<MenuItem> menuItems;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

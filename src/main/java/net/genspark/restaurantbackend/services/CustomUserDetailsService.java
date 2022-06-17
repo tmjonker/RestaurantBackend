@@ -3,6 +3,7 @@ package net.genspark.restaurantbackend.services;
 import net.genspark.restaurantbackend.entities.address.Address;
 import net.genspark.restaurantbackend.entities.user.User;
 import net.genspark.restaurantbackend.repositories.UserRepository;
+import org.springframework.data.util.Streamable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,6 +51,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public boolean userHasAddress(User user, Address address) {
 
-        return (user.getAddresses().contains(address));
+        List<Address> addressList = user.getAddresses();
+
+        for (Address add : addressList) {
+
+            if (add.getAddress1().equals(address.getAddress1()) && add.getZipCode() == address.getZipCode())
+                return true;
+        }
+
+        return false;
     }
 }

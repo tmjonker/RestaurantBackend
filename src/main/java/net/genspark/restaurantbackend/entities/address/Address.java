@@ -24,9 +24,6 @@ public class Address {
 
     private int zipCode;
 
-    @OneToOne(mappedBy = "address")
-    private Purchase purchase;
-
     public Address(String name, String address1, String address2, String city, String state, int zipCode) {
         this.name = name;
         this.address1 = address1;
@@ -100,11 +97,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return id == address.id && zipCode == address.zipCode && Objects.equals(name, address.name) && Objects.equals(address1, address.address1) && Objects.equals(address2, address.address2) && Objects.equals(city, address.city) && Objects.equals(state, address.state) && Objects.equals(purchase, address.purchase);
+        return id == address.id && zipCode == address.zipCode && Objects.equals(name, address.name) && Objects.equals(address1, address.address1) && Objects.equals(address2, address.address2) && Objects.equals(city, address.city) && Objects.equals(state, address.state);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address1, address2, city, state, zipCode, purchase);
+        return Objects.hash(id, name, address1, address2, city, state, zipCode);
     }
 }
