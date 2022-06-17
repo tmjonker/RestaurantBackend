@@ -47,4 +47,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return user.getAddresses();
     }
+
+    public boolean userHasAddress(User user, Address address) {
+
+        return (user.getAddresses().contains(address));
+    }
 }

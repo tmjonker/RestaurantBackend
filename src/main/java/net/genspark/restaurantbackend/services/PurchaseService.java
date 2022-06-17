@@ -19,10 +19,10 @@ public class PurchaseService {
     RewardService rewardService;
     MenuService menuService;
 
-    AddressCustomService addressService;
+    AddressService addressService;
 
     public PurchaseService(PurchaseRepository purchaseRepository, CustomUserDetailsService userDetailsService,
-                           RewardService rewardService, MenuService menuService, AddressCustomService addressService) {
+                           RewardService rewardService, MenuService menuService, AddressService addressService) {
 
         this.purchaseRepository = purchaseRepository;
         this.userDetailsService = userDetailsService;
@@ -38,13 +38,21 @@ public class PurchaseService {
         List<MenuItem> menuItems = new ArrayList<>();
         purchaseRequest.getMenuIds().forEach(item -> menuItems.add(menuService.getMenuItemById(item)));
 
-        Address address = addressService.saveAddress(purchaseRequest.getAddress());
+        Address address;
+
+        if (!addressService.addressExists(purchaseRequest.getAddress()))
+            address = addressService.saveAddress(purchaseRequest.getAddress());
+        else
+            address = addressService.findAddress(purchaseRequest.getAddress());
 
         Purchase purchase = new Purchase(purchaseRequest.getDate(), purchaseRequest.getPrice(), address);
         menuItems.forEach(item -> purchase.addMenuItem(item));
 
         user.addPurchase(purchase);
-        user.addAddress(address);
+
+        if (!userDetailsService.userHasAddress(user, address)) {
+            user.addAddress(address);
+        }
 
         rewardService.addRewardsToUser(user);
 

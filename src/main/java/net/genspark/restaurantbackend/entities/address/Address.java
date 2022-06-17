@@ -3,6 +3,7 @@ package net.genspark.restaurantbackend.entities.address;
 import net.genspark.restaurantbackend.entities.purchase.Purchase;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Address {
@@ -92,5 +93,18 @@ public class Address {
 
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return id == address.id && zipCode == address.zipCode && Objects.equals(name, address.name) && Objects.equals(address1, address.address1) && Objects.equals(address2, address.address2) && Objects.equals(city, address.city) && Objects.equals(state, address.state) && Objects.equals(purchase, address.purchase);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address1, address2, city, state, zipCode, purchase);
     }
 }
