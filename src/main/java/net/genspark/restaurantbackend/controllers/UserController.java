@@ -19,7 +19,7 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping
+    @GetMapping("/user/{username}")
     public List<Address> getUserAddresses(@PathVariable String username) {
 
         return userDetailsService.getUserAddresses(username);
